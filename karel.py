@@ -1,10 +1,13 @@
-﻿import livewires
+# -*- coding: utf-8 -*-
 
-livewires.begin_graphics()
+import livewires
+
+#livewires.begin_graphics()
 livewires.allow_movables()
 
 
-class robot():
+class Robot():
+    "Robot - říkejme mu třeba Kája"
 
     def __init__(self,*seznam_objektu):
         self.velikost = 100
@@ -125,12 +128,22 @@ class robot():
         ivisible = self.je_videt
         if ivisible:
             self.skryj()
-        # ze směru identifikuji přírůstky v jednotlivých osách
-        self.x += (self.orientace+1)%2*(1-(self.orientace/2*2))*self.delka_kroku
-        self.y += self.orientace%2*(1-(self.orientace/2*2))    *self.delka_kroku
+        ikrok = True
         if str(type(self.mesto)) == "<type 'instance'>":
-            self.mx += (self.orientace+1)%2*(1-(self.orientace/2*2))
-            self.my += self.orientace%2*(1-(self.orientace/2*2))    
+            # otestovat, jestli robot může na políčko vkročit
+            mx_test += (self.orientace+1)%2*(1-(self.orientace/2*2))
+            my_test += self.orientace%2*(1-(self.orientace/2*2))
+            if True: 
+                self.mx += (self.orientace+1)%2*(1-(self.orientace/2*2))
+                self.my += self.orientace%2*(1-(self.orientace/2*2))
+                # zaregistrovat robota na novém políčku ve městě
+            else:
+                ikrok = False
+        if ikrok: 
+            # ze směru identifikuji přírůstky v jednotlivých osách
+            self.x += (self.orientace+1)%2*(1-(self.orientace/2*2))*self.delka_kroku
+            self.y += self.orientace%2*(1-(self.orientace/2*2))    *self.delka_kroku
+
         if ivisible:
             self.zobraz()
 
@@ -170,7 +183,7 @@ class robot():
             self.zobraz()
         
 
-class mesto:
+class Mesto:
     def __init__(self,*seznam):
         # volitelné parametry jsou buď:
         # rozměr vodorovně, rozměr svisle (počty políček)
@@ -289,11 +302,13 @@ class mesto:
         return vysledek
 
     def do_mesta(self, objekt, typ, *param):
-        # žádost o přijetí objektu (robota) do města
-        # nepovinné parametry:
-        #   x požadované
-        #   y požadované
-        #   požad. prázdné pole (bez zdi)
+        """
+        žádost o přijetí objektu (robota) do města
+        nepovinné parametry:
+           x požadované
+           y požadované
+           požad. prázdné pole (bez zdi)
+        """
         if type(objekt).__name__ == 'instance':
             if typ == "robot":
                 if len(param)>1 and self.je_ve_meste("pole",[param[0],param[1]]) != False:
