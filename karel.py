@@ -358,4 +358,5 @@ class Mesto:
         
 # příliš žluťoučký kůň úpěl ďábelské ódy
 
-                       
+# pozdrav pro tatu
+
