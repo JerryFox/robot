@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+# dneska jsme si k tomu sedli s Jakubem skrzeva GIT
+
 import livewires
 
 #livewires.begin_graphics()
